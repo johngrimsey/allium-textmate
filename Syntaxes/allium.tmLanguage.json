@@ -20,10 +20,13 @@
     { "include": "#namespace-qualified-ref" },
     { "include": "#function-call" },
     { "include": "#param-annotations" },
+    { "include": "#collection-methods" },
+    { "include": "#discard-binding" },
     { "include": "#keywords" },
     { "include": "#builtin-types" },
     { "include": "#type-reference" },
     { "include": "#operators" },
+    { "include": "#pipe-separator" },
     { "include": "#nullable" }
   ],
   "repository": {
@@ -160,6 +163,16 @@
       "match": "\\((required|optional)\\)",
       "name": "storage.modifier.allium"
     },
+    "collection-methods": {
+      "match": "\\.(count|any|all|first|last|add|remove|created)\\b",
+      "captures": {
+        "1": { "name": "support.function.allium" }
+      }
+    },
+    "discard-binding": {
+      "match": "(?<=\\s|^|,|\\()_(?=\\s|:|,|\\)|$)",
+      "name": "variable.language.discard.allium"
+    },
     "keywords": {
       "patterns": [
         {
@@ -175,7 +188,7 @@
           "name": "keyword.control.import.allium"
         },
         {
-          "match": "\\b(exposes|provides|contracts|demands|fulfils|facing|context|identified_by|related|timeout)\\b",
+          "match": "\\b(exposes|provides|contracts|demands|fulfils|facing|context|identified_by|related|timeout|within)\\b",
           "name": "keyword.other.allium"
         },
         {
@@ -207,6 +220,10 @@
     "type-reference": {
       "match": "(?<!\\w)([A-Z][A-Za-z0-9]*(?:[A-Z][a-z0-9]+)+)(?!\\s*\\()",
       "name": "support.type.allium"
+    },
+    "pipe-separator": {
+      "match": "\\|",
+      "name": "punctuation.separator.pipe.allium"
     },
     "operators": {
       "match": "(!=|>=|<=|=>|->|\\?\\?|=|>|<|\\+|-|\\*|/)",

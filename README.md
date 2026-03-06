@@ -55,17 +55,21 @@ Restart VS Code.
 | Function/predicate calls | `OrderIsValid(order)`, `ResponseReturned(...)` |
 | Variant inheritance | `variant Leaf : Node { ... }` |
 | Default instances | `default Role viewer = { ... }` |
-| Surface keywords | `facing`, `context`, `exposes`, `provides`, `contracts`, `demands`, `fulfils`, `related`, `timeout`, `identified_by` |
+| Surface keywords | `facing`, `context`, `exposes`, `provides`, `contracts`, `demands`, `fulfils`, `related`, `timeout`, `identified_by`, `within` |
 | `@` annotations | `@guidance`, `@invariant`, `@guarantee` |
 | Endpoint declarations | `endpoint GET "/orders"` |
 | HTTP methods | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
 | Parameter keywords | `query`, `body`, `response`, `semantics`, `note`, `base_path` |
 | Parameter annotations | `(required)`, `(optional)` |
+| Collection methods | `.count`, `.any()`, `.all()`, `.first`, `.last` |
+| Mutation methods | `.add()`, `.remove()`, `.created()` |
 | Expression keywords | `transitions_to`, `becomes`, `created`, `where`, `with`, `in` |
 | Logical operators | `not`, `or`, `and`, `implies`, `exists`, `null`, `true`, `false` |
 | Built-in values | `now`, `this` |
 | Duration literals | `7.days`, `24.hours`, `30.seconds` |
 | String literals | `'pending'`, `"/api/orders"` |
 | Operators | `=`, `!=`, `>=`, `<=`, `>`, `<`, `+`, `-`, `*`, `/`, `=>`, `->`, `??` |
+| Discard binding | `_` (in triggers, loops, parameters) |
+| Pipe separators | `pending \| active \| completed`, `Branch \| Leaf` |
 | Nullable markers | `?` |
 | Open questions | `open question "Should admins ...?"` |
