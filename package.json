@@ -1,0 +1,22 @@
+{
+  "name": "allium-language",
+  "displayName": "Allium Language Support",
+  "description": "Syntax highlighting for Allium specification files",
+  "version": "0.1.0",
+  "contributes": {
+    "grammars": [
+      {
+        "language": "allium",
+        "scopeName": "source.allium",
+        "path": "./Syntaxes/allium.tmLanguage.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "allium",
+        "extensions": [".allium"],
+        "aliases": ["Allium", "allium"]
+      }
+    ]
+  }
+}
