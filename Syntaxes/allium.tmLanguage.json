@@ -3,18 +3,23 @@
   "name": "Allium",
   "fileTypes": ["allium"],
   "patterns": [
+    { "include": "#version-marker" },
     { "include": "#comments" },
     { "include": "#section-dividers" },
     { "include": "#use-statement" },
     { "include": "#strings-double" },
     { "include": "#strings-single" },
+    { "include": "#duration-literal" },
     { "include": "#numbers" },
+    { "include": "#at-annotations" },
     { "include": "#endpoint-declaration" },
+    { "include": "#open-question" },
     { "include": "#block-declarations" },
+    { "include": "#generic-type" },
     { "include": "#property-type" },
-    { "include": "#namespace-qualified-type" },
+    { "include": "#namespace-qualified-ref" },
     { "include": "#function-call" },
-    { "include": "#annotations" },
+    { "include": "#param-annotations" },
     { "include": "#keywords" },
     { "include": "#builtin-types" },
     { "include": "#type-reference" },
@@ -22,6 +27,13 @@
     { "include": "#nullable" }
   ],
   "repository": {
+    "version-marker": {
+      "match": "^(-- allium:\\s*)(\\d+)\\s*$",
+      "captures": {
+        "1": { "name": "comment.line.double-dash.allium" },
+        "2": { "name": "constant.numeric.allium" }
+      }
+    },
     "comments": {
       "match": "--.*$",
       "name": "comment.line.double-dash.allium"
@@ -47,9 +59,23 @@
       "match": "'[^']*'",
       "name": "string.quoted.single.allium"
     },
+    "duration-literal": {
+      "match": "\\b(\\d[\\d_]*)\\.(seconds?|minutes?|hours?|days?|weeks?|months?|years?)\\b",
+      "captures": {
+        "1": { "name": "constant.numeric.allium" },
+        "2": { "name": "support.type.allium" }
+      }
+    },
     "numbers": {
-      "match": "\\b\\d+\\b",
+      "match": "\\b\\d[\\d_]*\\b",
       "name": "constant.numeric.allium"
+    },
+    "at-annotations": {
+      "match": "(@)(guidance|invariant|guarantee)\\b",
+      "captures": {
+        "1": { "name": "punctuation.definition.annotation.allium" },
+        "2": { "name": "storage.modifier.annotation.allium" }
+      }
     },
     "endpoint-declaration": {
       "match": "\\b(endpoint)\\s+(GET|POST|PUT|PATCH|DELETE)\\s+(\"[^\"]*\")",
@@ -57,6 +83,13 @@
         "1": { "name": "keyword.declaration.allium" },
         "2": { "name": "constant.language.http-method.allium" },
         "3": { "name": "string.quoted.double.allium" }
+      }
+    },
+    "open-question": {
+      "match": "\\b(open\\s+question)\\s+(\"[^\"]*\")",
+      "captures": {
+        "1": { "name": "keyword.control.allium" },
+        "2": { "name": "string.quoted.double.allium" }
       }
     },
     "block-declarations": {
@@ -69,13 +102,37 @@
           }
         },
         {
-          "match": "\\b(value|entity|actor|surface|rule)\\s+([A-Z]\\w*)",
+          "match": "\\b(value|entity|actor|surface|rule|contract|variant|enum)\\s+([A-Z]\\w*)",
           "captures": {
             "1": { "name": "keyword.declaration.allium" },
             "2": { "name": "entity.name.type.allium" }
           }
+        },
+        {
+          "match": "\\b(variant)\\s+([A-Z]\\w*)\\s*(:)\\s*([A-Z]\\w*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.allium" },
+            "2": { "name": "entity.name.type.allium" },
+            "3": { "name": "punctuation.separator.allium" },
+            "4": { "name": "support.type.allium" }
+          }
+        },
+        {
+          "match": "\\b(default)\\s+([A-Z]\\w*)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.declaration.allium" },
+            "2": { "name": "support.type.allium" },
+            "3": { "name": "variable.other.allium" }
+          }
         }
       ]
+    },
+    "generic-type": {
+      "match": "\\b(Set|List)\\s*<([A-Z]\\w*\\??)>",
+      "captures": {
+        "1": { "name": "support.type.allium" },
+        "2": { "name": "support.type.allium" }
+      }
     },
     "property-type": {
       "match": "\\b(\\w+):\\s+([A-Z]\\w*)(\\??)",
@@ -85,11 +142,12 @@
         "3": { "name": "keyword.operator.nullable.allium" }
       }
     },
-    "namespace-qualified-type": {
-      "match": "\\b(\\w+)\\.([A-Z]\\w*)",
+    "namespace-qualified-ref": {
+      "match": "\\b(\\w+)(/config)?\\.([A-Z]\\w*)",
       "captures": {
         "1": { "name": "entity.name.namespace.allium" },
-        "2": { "name": "support.type.allium" }
+        "2": { "name": "keyword.other.allium" },
+        "3": { "name": "support.type.allium" }
       }
     },
     "function-call": {
@@ -98,18 +156,18 @@
         "1": { "name": "entity.name.function.allium" }
       }
     },
-    "annotations": {
+    "param-annotations": {
       "match": "\\((required|optional)\\)",
       "name": "storage.modifier.allium"
     },
     "keywords": {
       "patterns": [
         {
-          "match": "\\b(rule|when|requires|ensures|let|invariant)\\b",
+          "match": "\\b(rule|when|requires|ensures|let|invariant|if|else|for)\\b",
           "name": "keyword.control.allium"
         },
         {
-          "match": "\\b(value|entity|actor|surface|external|endpoint)\\b",
+          "match": "\\b(value|entity|actor|surface|external|endpoint|contract|variant|enum|given|config|default|deferred)\\b",
           "name": "keyword.declaration.allium"
         },
         {
@@ -117,7 +175,7 @@
           "name": "keyword.control.import.allium"
         },
         {
-          "match": "\\b(for|exposes|provides|identified_by)\\b",
+          "match": "\\b(exposes|provides|contracts|demands|fulfils|facing|context|identified_by|related|timeout)\\b",
           "name": "keyword.other.allium"
         },
         {
@@ -125,8 +183,16 @@
           "name": "keyword.other.section.allium"
         },
         {
-          "match": "\\b(not|or|and|null|true|false)\\b",
+          "match": "\\b(not|or|and|null|true|false|implies|exists)\\b",
           "name": "keyword.operator.logical.allium"
+        },
+        {
+          "match": "\\b(transitions_to|becomes|created|where|with|in)\\b",
+          "name": "keyword.operator.expression.allium"
+        },
+        {
+          "match": "\\b(now|this)\\b",
+          "name": "variable.language.allium"
         },
         {
           "match": "\\b(GET|POST|PUT|PATCH|DELETE)\\b",
@@ -135,7 +201,7 @@
       ]
     },
     "builtin-types": {
-      "match": "\\b(String|Integer|Timestamp|Record|Boolean|UUID|CSV)\\b",
+      "match": "\\b(String|Integer|Decimal|Timestamp|Duration|Record|Boolean|UUID|CSV|Any|Set|List|ByteArray)\\b",
       "name": "support.type.allium"
     },
     "type-reference": {
@@ -143,7 +209,7 @@
       "name": "support.type.allium"
     },
     "operators": {
-      "match": "(!=|=>|=)",
+      "match": "(!=|>=|<=|=>|->|\\?\\?|=|>|<|\\+|-|\\*|/)",
       "name": "keyword.operator.allium"
     },
     "nullable": {

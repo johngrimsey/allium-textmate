@@ -1,13 +1,13 @@
 # Allium TextMate Grammar
 
-Syntax highlighting for [Allium](https://github.com/overchain/allium) specification files (`.allium`).
+Syntax highlighting for [Allium](https://juxt.github.io/allium/) specification files (`.allium`).
 
 ## Installation
 
 Clone (or download and unzip) this repository:
 
 ```bash
-git clone https://github.com/johngrimsey/allium-textmate.git
+git clone https://github.com/overchain/allium-textmate.git
 ```
 
 ### IntelliJ IDEA / WebStorm / Rider
