@@ -7,7 +7,7 @@ Syntax highlighting for [Allium](https://juxt.github.io/allium/) specification f
 Clone (or download and unzip) this repository:
 
 ```bash
-git clone https://github.com/overchain/allium-textmate.git
+git clone https://github.com/johngrimsey/allium-textmate.git
 ```
 
 ### IntelliJ IDEA / WebStorm / Rider
@@ -40,22 +40,32 @@ Restart VS Code.
 
 | Element | Examples |
 |---|---|
+| Version marker | `-- allium: 2` |
 | Comments | `-- a comment` |
 | Section dividers | `------------------------------------------------------------` |
-| Control keywords | `rule`, `when`, `requires`, `ensures`, `let`, `invariant` |
-| Declaration keywords | `value`, `entity`, `actor`, `surface`, `external`, `endpoint` |
+| Control keywords | `rule`, `when`, `requires`, `ensures`, `let`, `invariant`, `if`, `else`, `for` |
+| Declaration keywords | `value`, `entity`, `actor`, `surface`, `external`, `endpoint`, `contract`, `variant`, `enum`, `given`, `config`, `default`, `deferred` |
 | Import statements | `use "../shared/types.allium" as types` |
-| Built-in types | `String`, `Integer`, `Timestamp`, `Record`, `Boolean`, `UUID`, `CSV` |
-| Type names (declarations) | `value OrderStatus { ... }`, `rule PlaceOrder { ... }` |
+| Built-in types | `String`, `Integer`, `Decimal`, `Timestamp`, `Duration`, `Record`, `Boolean`, `UUID`, `CSV`, `Any`, `Set`, `List`, `ByteArray` |
+| Generic types | `Set<Item>`, `List<Node?>` |
+| Type names (declarations) | `value OrderStatus { ... }`, `contract Codec { ... }` |
 | Type references | PascalCase names used as types, e.g. `status: OrderStatus` |
 | Property declarations | `name: String` — property and type get distinct colours |
-| Namespace-qualified types | `types.MyValueType` |
+| Namespace-qualified refs | `types.MyValueType`, `core/config.timeout` |
 | Function/predicate calls | `OrderIsValid(order)`, `ResponseReturned(...)` |
+| Variant inheritance | `variant Leaf : Node { ... }` |
+| Default instances | `default Role viewer = { ... }` |
+| Surface keywords | `facing`, `context`, `exposes`, `provides`, `contracts`, `demands`, `fulfils`, `related`, `timeout`, `identified_by` |
+| `@` annotations | `@guidance`, `@invariant`, `@guarantee` |
 | Endpoint declarations | `endpoint GET "/orders"` |
 | HTTP methods | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
 | Parameter keywords | `query`, `body`, `response`, `semantics`, `note`, `base_path` |
-| Annotations | `(required)`, `(optional)` |
+| Parameter annotations | `(required)`, `(optional)` |
+| Expression keywords | `transitions_to`, `becomes`, `created`, `where`, `with`, `in` |
+| Logical operators | `not`, `or`, `and`, `implies`, `exists`, `null`, `true`, `false` |
+| Built-in values | `now`, `this` |
+| Duration literals | `7.days`, `24.hours`, `30.seconds` |
 | String literals | `'pending'`, `"/api/orders"` |
-| Logical operators | `not`, `or`, `and`, `null`, `true`, `false` |
-| Operators | `=`, `!=`, `=>` |
+| Operators | `=`, `!=`, `>=`, `<=`, `>`, `<`, `+`, `-`, `*`, `/`, `=>`, `->`, `??` |
 | Nullable markers | `?` |
+| Open questions | `open question "Should admins ...?"` |
